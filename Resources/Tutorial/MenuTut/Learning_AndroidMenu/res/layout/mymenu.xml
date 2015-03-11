@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:id="@+id/Connectivity"
+        android:icon="@drawable/smconnectivity"
+        android:title="Connectivity"/>
+    
+    <item android:id="@+id/DeviceAccess"
+        android:icon="@drawable/smdevice_access"
+        android:title="Decice Access"/>
+    
+    <item android:id="@+id/Multimedia"
+        android:icon="@drawable/smmultimedia"
+        android:title="Multimedia"/>
+    
+    <item android:id="@+id/OfflineStorage"
+        android:icon="@drawable/smstorage"
+        android:title="Offline Storage"/>
+    
+    <item android:id="@+id/HTML5"
+        android:icon="@drawable/smhtml"
+        android:title="HTML 5"/>
+    
+    <item android:id="@+id/Performance"
+        android:icon="@drawable/smperforment"
+        android:title="Performance"/>
+    
+</menu>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, Learning_AndroidMenuActivity!</string>
+    <string name="app_name">MyAndroidMenu</string>
+    <string name="head">My Android Menu</string>
+    <string name="Conectivity">Conectivity</string>
+    <string name="DeviceAccess">Device Access</string>
+    <string name="Multimedia">Multimedia</string>
+    <string name="OfflineStorage">Offline Storage</string>
+    <string name="HTML5">HTML 5</string>
+    <string name="Performance">Performance</string>
+    <string name="BackHome">Back Home</string>
+
+</resources>
