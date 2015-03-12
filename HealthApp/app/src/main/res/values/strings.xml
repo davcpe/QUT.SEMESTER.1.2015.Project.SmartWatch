@@ -14,4 +14,5 @@
     <string name="BackHome">Back Home</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_category">CategoryActivity</string>
+    <string name="title_activity_physical">PhysicalActivity</string>
 </resources>

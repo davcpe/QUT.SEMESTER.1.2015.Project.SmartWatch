@@ -1,33 +1,24 @@
 package com.example.davcpe.healthapp;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class CategoryActivity extends Activity {
+public class PhysicalActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-    }
-
-    public void PhyPage(View view){
-        Intent objIntent = new Intent(CategoryActivity.this,PhysicalActivity.class);
-        startActivity(objIntent);
-        finish();
-
+        setContentView(R.layout.activity_physical);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_category, menu);
+        getMenuInflater().inflate(R.menu.menu_physical, menu);
         return true;
     }
 

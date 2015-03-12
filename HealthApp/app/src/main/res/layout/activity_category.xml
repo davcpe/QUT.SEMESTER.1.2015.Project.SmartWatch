@@ -56,7 +56,7 @@
                 android:id="@+id/imageActivity"
                 android:layout_weight="1"
                 android:src="@drawable/activity_icon"
-                android:onClick="ACTPage" />
+                android:onClick="PhyPage" />
 
 
             <ImageView

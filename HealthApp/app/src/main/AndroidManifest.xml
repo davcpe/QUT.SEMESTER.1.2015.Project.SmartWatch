@@ -23,6 +23,10 @@
             android:name=".CategoryActivity"
             android:label="@string/title_activity_category" >
         </activity>
+        <activity
+            android:name=".PhysicalActivity"
+            android:label="@string/title_activity_physical" >
+        </activity>
     </application>
 
 </manifest>
