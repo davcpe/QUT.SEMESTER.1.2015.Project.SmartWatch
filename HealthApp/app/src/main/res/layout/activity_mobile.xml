@@ -41,14 +41,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:id="@+id/button"
-        android:layout_below="@+id/editPassword" />
+        android:id="@+id/BtnLogin"
+        android:layout_below="@+id/editPassword"
+        android:onClick="clickLogin"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button" />
+        android:id="@+id/BtnRegister"
+        android:layout_below="@+id/BtnLogin"
+        android:onClick="RegisterPage"
+        />
+
 
 </RelativeLayout>

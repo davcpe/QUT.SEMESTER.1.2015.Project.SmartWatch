@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DONE"
-        android:id="@+id/button"
+        android:id="@+id/BtnLogin"
         android:layout_below="@+id/editUserID" />
 
     <EditText

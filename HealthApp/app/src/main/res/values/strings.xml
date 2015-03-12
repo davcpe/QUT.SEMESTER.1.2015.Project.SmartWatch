@@ -12,4 +12,6 @@
     <string name="HTML5">HTML 5</string>
     <string name="Performance">Performance</string>
     <string name="BackHome">Back Home</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_category">CategoryActivity</string>
 </resources>
