@@ -30,6 +30,8 @@ import java.io.InputStreamReader;
 public class MobileActivity extends Activity {
 
     private UserTABLE objUserTABLE;
+    private CategoryTABLE objCategoryTABLE;
+
     private  String strUserChoose,strPasswordChoose,strPasswordTrue, strName;
     private EditText edtUser, edtPassword;
 
@@ -43,6 +45,7 @@ public class MobileActivity extends Activity {
     bindWidget();
 
     objUserTABLE = new UserTABLE(this);
+    objCategoryTABLE = new CategoryTABLE(this);
 
     //delete All data
     deleteData();
