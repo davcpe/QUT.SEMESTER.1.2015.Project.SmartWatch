@@ -10,6 +10,8 @@ import android.view.View;
 
 public class CategoryActivity extends Activity {
 
+    private String strName = "Activity Challenges";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +20,7 @@ public class CategoryActivity extends Activity {
 
     public void PhyPage(View view){
         Intent objIntent = new Intent(CategoryActivity.this,PhysicalActivity.class);
+        objIntent.putExtra("Name",strName);
         startActivity(objIntent);
         finish();
 

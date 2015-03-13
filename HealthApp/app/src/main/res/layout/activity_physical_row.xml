@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/txtShowActName"
-            android:textSize="50dp"
+            android:textSize="35dp"
             android:layout_gravity="center_vertical" />
 
     </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.davcpe.healthapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -48,7 +49,7 @@ public class PhysicalActivity extends Activity {
         objCategoryTABLE = new CategoryTABLE(this);
 
         //SetUp Text Officer
-         //setUpTxtShow();
+         setUpTxtShow();
 
         //Synchronize JSON SQLite
         synchronizeJSONtoCategory();
@@ -69,7 +70,7 @@ public class PhysicalActivity extends Activity {
 
     private void createListView() {
 
-        int[]myTarget = {R.drawable.walk_icon,R.drawable.yoga_icon,R.drawable.cycling_icon}; // Add Images
+        int[]myTarget = {R.drawable.walk_icon,R.drawable.yoga_icon2,R.drawable.cycling_icon}; // Add Images
 
         MyAdapter objMyAdapter = new MyAdapter(PhysicalActivity.this, strListCategoryName,myTarget);
         final ListView objListView = (ListView)findViewById(R.id.CoffeelistView);
@@ -220,6 +221,14 @@ public class PhysicalActivity extends Activity {
         txtShowOfficer = (TextView)findViewById(R.id.txtShowOfficer);
 
     }//bindWidget
+
+
+    public void Back(){
+        Intent objIntent = new Intent(PhysicalActivity.this,MobileActivity.class);
+        startActivity(objIntent);
+        finish();
+
+    }
 
 
     @Override

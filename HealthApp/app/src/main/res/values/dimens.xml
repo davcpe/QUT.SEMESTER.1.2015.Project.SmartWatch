@@ -7,4 +7,5 @@
     <dimen name="image3">150dp</dimen>
     <dimen name="img">100dp</dimen>
     <dimen name="img2">150dp</dimen>
+    <dimen name="img3">70dp</dimen>
 </resources>

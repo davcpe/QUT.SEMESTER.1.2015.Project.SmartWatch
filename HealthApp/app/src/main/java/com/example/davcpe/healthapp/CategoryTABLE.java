@@ -12,7 +12,7 @@ public class CategoryTABLE {
     private  MyOpenHelper objMyOpenHelper;
     private SQLiteDatabase writeSQLite, readSQLite;
 
-    public static  final String Category_TABLE = "coffeeTable";
+    public static  final String Category_TABLE = "categoryTABLE";
     public static  final String COLUMN_NO_CATEGORY  ="_no";
     public static  final String COLUMN_ID_CATEGORY = "category_id";
     public static  final String COLUMN_NAME_CATEGORY = "category_name";

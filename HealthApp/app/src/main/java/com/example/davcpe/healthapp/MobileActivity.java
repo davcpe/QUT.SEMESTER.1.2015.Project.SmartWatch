@@ -197,13 +197,14 @@ public class MobileActivity extends Activity {
     private void deleteData() {
         SQLiteDatabase objSQLite = openOrCreateDatabase("Health.db",MODE_PRIVATE,null);
         objSQLite.delete("userTABLE",null,null);
+        objSQLite.delete("categoryTABLE",null,null);
 
     }
 
 
     public void RegisterPage(View view){
 
-       Intent objIntent = new Intent(MobileActivity.this,RegisterActivity.class);
+       Intent objIntent = new Intent(MobileActivity.this,PhysicalActivity.class);
        startActivity(objIntent);
        finish();
 
