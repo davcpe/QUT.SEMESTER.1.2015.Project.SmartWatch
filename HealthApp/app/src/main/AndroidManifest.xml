@@ -27,6 +27,22 @@
             android:name=".PhysicalActivity"
             android:label="@string/title_activity_physical" >
         </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name=".AddfriendActivity"
+            android:label="@string/title_activity_addfriend" >
+        </activity>
+        <activity
+            android:name=".RankActivity"
+            android:label="@string/title_activity_rank" >
+        </activity>
+        <activity
+            android:name=".InviationActivity"
+            android:label="@string/title_activity_inviation" >
+        </activity>
     </application>
 
 </manifest>

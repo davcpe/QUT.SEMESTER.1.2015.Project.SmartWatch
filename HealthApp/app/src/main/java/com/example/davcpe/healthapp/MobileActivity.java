@@ -41,17 +41,17 @@ public class MobileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile);
 
-    //BindWidget
-    bindWidget();
+        //BindWidget
+        bindWidget();
 
-    objUserTABLE = new UserTABLE(this);
-    objCategoryTABLE = new CategoryTABLE(this);
+        objUserTABLE = new UserTABLE(this);
+        objCategoryTABLE = new CategoryTABLE(this);
 
-    //delete All data
-    deleteData();
+        //delete All data
+        deleteData();
 
-   //synJsonTOSQLite
-   synJsonTOSQLite();
+        //synJsonTOSQLite
+        synJsonTOSQLite();
 
     }//Oncreate
 
@@ -120,7 +120,7 @@ public class MobileActivity extends Activity {
         objAlert.setPositiveButton("OK",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent objIntent = new Intent(MobileActivity.this, CategoryActivity.class);
+                Intent objIntent = new Intent(MobileActivity.this, HomeActivity.class);
                 objIntent.putExtra("Name",strName);
                 startActivity(objIntent);
                 finish();
@@ -204,9 +204,9 @@ public class MobileActivity extends Activity {
 
     public void RegisterPage(View view){
 
-       Intent objIntent = new Intent(MobileActivity.this,PhysicalActivity.class);
-       startActivity(objIntent);
-       finish();
+        Intent objIntent = new Intent(MobileActivity.this,RegisterActivity.class);
+        startActivity(objIntent);
+        finish();
 
     }
 

@@ -15,4 +15,8 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_category">CategoryActivity</string>
     <string name="title_activity_physical">PhysicalActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_addfriend">AddfriendActivity</string>
+    <string name="title_activity_rank">RankActivity</string>
+    <string name="title_activity_inviation">InviationActivity</string>
 </resources>
