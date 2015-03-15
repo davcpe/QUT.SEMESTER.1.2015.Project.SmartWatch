@@ -14,7 +14,8 @@
         android:textSize="50dp"
         android:textColor="#ff6c78ff"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,9 +23,9 @@
         android:text="0.00 "
         android:id="@+id/ShowCalories"
         android:textSize="50dp"
+        android:layout_marginTop="76dp"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="125dp" />
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -67,5 +68,13 @@
             android:src="@drawable/notification_icon"
             android:onClick="invitationPage"/>
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/img5"
+        android:layout_height="@dimen/img2"
+        android:id="@+id/imageView4"
+        android:layout_below="@+id/ShowCalories"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/kcal_icon" />
 
 </RelativeLayout>
