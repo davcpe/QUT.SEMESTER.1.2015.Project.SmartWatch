@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">HealthApp</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello">Hello World, Learning_AndroidMenuActivity!</string>
+    <string name="head">My Android Menu</string>
+    <string name="Conectivity">Conectivity</string>
+    <string name="DeviceAccess">Device Access</string>
+    <string name="Multimedia">Multimedia</string>
+    <string name="OfflineStorage">Offline Storage</string>
+    <string name="HTML5">HTML 5</string>
+    <string name="Performance">Performance</string>
+    <string name="BackHome">Back Home</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_category">CategoryActivity</string>
+    <string name="title_activity_physical">PhysicalActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_addfriend">AddfriendActivity</string>
+    <string name="title_activity_rank">RankActivity</string>
+    <string name="title_activity_inviation">InviationActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
