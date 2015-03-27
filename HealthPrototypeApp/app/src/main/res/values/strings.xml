@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HealthPrototypeApp</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string-array name="activity">
+        <item>Cycling</item>
+        <item>Sleep</item>
+    </string-array>
+</resources>
