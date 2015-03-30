@@ -1,41 +1,22 @@
 package com.example.davcpe.healthprototypeapp;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-
-import android.app.ActionBar.OnNavigationListener;
-import android.widget.Toast;
 
 
 public class HomeActivity extends ActionBarActivity  {
@@ -216,7 +197,10 @@ public class HomeActivity extends ActionBarActivity  {
                         mTimerLabel.setText(timerStop1);
                         mStartTime = 0L;
 
-
+                        Intent objIntent = new Intent(HomeActivity.this,FriendActivity.class);
+                        objIntent.putExtra("UserName",user_name);
+                        startActivity(objIntent);
+                        finish();
 
                         //InviteFriendDialog
                         InviteFriendDialog();
@@ -258,10 +242,11 @@ public class HomeActivity extends ActionBarActivity  {
         objAlert.setPositiveButton("Accept",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                Intent objIntent = new Intent(MainActivity.this, HomeActivity.class);
-//                objIntent.putExtra("Name",strName);
-//                startActivity(objIntent);
-//                finish();
+
+                Intent objIntent = new Intent(HomeActivity.this,FriendActivity.class);
+                objIntent.putExtra("UserName",user_name);
+                startActivity(objIntent);
+                finish();
 
             }
         });

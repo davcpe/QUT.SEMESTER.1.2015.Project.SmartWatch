@@ -51,17 +51,15 @@ public class FriendTable {
 
     }//search User
 
-
-    public long addValueUser (String strNo, String strUserID, String strFriendName, String strFriendID){
+    public long addValueUser ( String strUserID, String strFriendName, String strFriendID){
         ContentValues objContentValues = new ContentValues();
 
-        objContentValues.put(COLUMN_NO, strNo);
+
         objContentValues.put(COLUMN_USER_ID, strUserID);
         objContentValues.put(COLUMN_FRIEND_NAME, strFriendName);
         objContentValues.put(COLUMN_FRIEND_ID, strFriendID);
         return writeSQLite.insert(TABLE_FRIEND, null,objContentValues);
     } //addValueToUser
-
 
     public String[]listName(){
 
