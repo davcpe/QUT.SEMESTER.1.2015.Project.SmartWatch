@@ -9,9 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class MyOpenHelper extends SQLiteOpenHelper {
 
-    private  static final String DATABASE_NAME = "Health.db";
+    private  static  final String DATABASE_NAME = "Health.db";
     private  static  final  int DATABASE_VERSION =1;
-    private static  final String USER_TABLE ="create table userTABLE (_no integer primary key,"+" user_id text, user_name text, user_password text, user_officer text);";
+    private  static  final String USER_TABLE ="create table userTABLE (_no integer primary key,"+" user_id text, user_name text, user_password text, user_officer text);";
+    private  static  final String FRIEND_TABLE ="create table friendTABLE(_no integer primary key,"+"user_id text, friend_name text, friend_id text);";
 
     public MyOpenHelper(Context context){
 
@@ -22,6 +23,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(USER_TABLE);
+        db.execSQL(FRIEND_TABLE);
     }
 
     @Override

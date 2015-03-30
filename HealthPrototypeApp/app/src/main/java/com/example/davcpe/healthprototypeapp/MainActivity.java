@@ -31,8 +31,9 @@ import java.io.InputStreamReader;
 public class MainActivity extends ActionBarActivity {
 
     private  UserTABLE objUserTABLE;
+    private  FriendTable objFriendTable;
 
-    private  String strUserChoose,strPasswordChoose,strPasswordTrue, strName;
+    private  String strUserChoose,strPasswordChoose,strPasswordTrue, strName,strUser_ID;
     private EditText edtUser, edtPassword;
 
     @Override
@@ -47,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
 
         //CreateTable
         objUserTABLE = new UserTABLE(this);
+        objFriendTable = new FriendTable(this);
 
         //delete All data
         deleteData();
@@ -78,6 +80,7 @@ public class MainActivity extends ActionBarActivity {
         try{
             String strData[] = objUserTABLE.searchUser(strUserChoose);//From EditText UserName Input
             strPasswordTrue = strData[3];
+            strUser_ID = strData[1];
             strName  = strData[2];
             Log.d("Health","Welcome  "+strName);
 
@@ -116,8 +119,9 @@ public class MainActivity extends ActionBarActivity {
         objAlert.setPositiveButton("OK",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent objIntent = new Intent(MainActivity.this, HomeActivity.class);
-                objIntent.putExtra("Name",strName);
+                Intent objIntent = new Intent(MainActivity.this, FirstPage.class);
+                objIntent.putExtra("UserName",strName);
+                objIntent.putExtra("UserID",strUser_ID);
                 startActivity(objIntent);
                 finish();
 
@@ -127,14 +131,6 @@ public class MainActivity extends ActionBarActivity {
 
 
     }//welcome user
-
-
-
-
-
-
-
-
 
 
     private void synJsonTOSQLite() {

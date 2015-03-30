@@ -8,4 +8,28 @@
         <item>Cycling</item>
         <item>Sleep</item>
     </string-array>
+    <string-array name="scale">
+        <item>Kcal</item>
+        <item>Distance(km)</item>
+    </string-array>
+    <string name="title_activity_first_page">FirstPage</string>
+
+    <string-array name="menu">
+        <item>Activity</item>
+        <item>Rank</item>
+        <item>Friend</item>
+        <item>My Challenge</item>
+        <item>Map</item>
+
+
+    </string-array>
+    <string name="title_activity_show_detail">showDetail</string>
+
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_friend">FriendActivity</string>
+
+
 </resources>

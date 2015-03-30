@@ -1,27 +1,25 @@
 package com.example.davcpe.healthprototypeapp;
 
 /**
- * Created by davcpe on 3/27/2015.
- *
- *
+ * Created by davcpe on 3/30/2015.
  */
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class UserTABLE {
+public class FriendTable {
 
     private MyOpenHelper objMyOpenHelper;
     private SQLiteDatabase writeSQLite, readSQLite;
-    public static final String TABLE_USER = "userTABLE";
-    public static final String COLUMN_NO_USER  ="_no";
+    public static final String TABLE_FRIEND = "friendTABLE";
+    public static final String COLUMN_NO  ="_no";
     public static final String COLUMN_USER_ID = "user_id";
-    public static final String COLUMN_USER_NAME = "user_name";
-    public static  final String COLUMN_USER_PASSWORD = "user_password";
-    public static  final String COLUMN_OFFICER = "user_officer";
+    public static final String COLUMN_FRIEND_NAME = "friend_name";
+    public static  final String COLUMN_FRIEND_ID = "friend_id";
 
-    public UserTABLE(Context context) {
+
+    public FriendTable(Context context) {
         objMyOpenHelper = new MyOpenHelper(context);
         writeSQLite = objMyOpenHelper.getWritableDatabase();
         readSQLite = objMyOpenHelper.getReadableDatabase();
@@ -31,8 +29,8 @@ public class UserTABLE {
         try {
 
             String strData[]= null;
-            Cursor objCursor = readSQLite.query(TABLE_USER,
-                    new String[] {COLUMN_NO_USER, COLUMN_USER_ID,COLUMN_USER_NAME,COLUMN_USER_PASSWORD,COLUMN_OFFICER},COLUMN_USER_NAME+"=?",
+            Cursor objCursor = readSQLite.query(TABLE_FRIEND,
+                    new String[] {COLUMN_NO, COLUMN_USER_ID,COLUMN_FRIEND_NAME,COLUMN_FRIEND_ID},COLUMN_USER_ID+"=?",
                     new String[] {String.valueOf(strUSerName)}, null,null,null,null);
             if (objCursor != null) {
                 if(objCursor.moveToFirst()){
@@ -41,7 +39,6 @@ public class UserTABLE {
                     strData[1] = objCursor.getString(1);
                     strData[2] = objCursor.getString(2);
                     strData[3] = objCursor.getString(3);
-                    strData[4] = objCursor.getString(4);
                 }// if2
             }//if1
 
@@ -54,13 +51,34 @@ public class UserTABLE {
 
     }//search User
 
-    public long addValueUser (String strUserID, String strUserName, String strPassword, String strOfficer){
+
+    public long addValueUser (String strNo, String strUserID, String strFriendName, String strFriendID){
         ContentValues objContentValues = new ContentValues();
 
+        objContentValues.put(COLUMN_NO, strNo);
         objContentValues.put(COLUMN_USER_ID, strUserID);
-        objContentValues.put(COLUMN_USER_NAME, strUserName);
-        objContentValues.put(COLUMN_USER_PASSWORD, strPassword);
-        objContentValues.put(COLUMN_OFFICER, strOfficer);
-        return writeSQLite.insert(TABLE_USER, null,objContentValues);
+        objContentValues.put(COLUMN_FRIEND_NAME, strFriendName);
+        objContentValues.put(COLUMN_FRIEND_ID, strFriendID);
+        return writeSQLite.insert(TABLE_FRIEND, null,objContentValues);
     } //addValueToUser
+
+
+    public String[]listName(){
+
+        String strlistName[] = null;
+        Cursor objCursor = readSQLite.query(TABLE_FRIEND,
+                new String[]{COLUMN_NO,COLUMN_FRIEND_NAME},null,null,null,null,null);
+        objCursor.moveToFirst();
+        strlistName = new String[objCursor.getCount()];
+
+        for(int i=0;i<objCursor.getCount();i++){
+            strlistName[i] = objCursor.getString(objCursor.getColumnIndex(COLUMN_FRIEND_NAME));
+            objCursor.moveToNext();
+        }//for
+        objCursor.close();
+        return  strlistName;
+
+    }//ListPrice
+
+
 }

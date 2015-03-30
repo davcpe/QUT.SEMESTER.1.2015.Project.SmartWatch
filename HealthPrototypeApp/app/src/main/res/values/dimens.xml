@@ -8,4 +8,16 @@
     <dimen name="img40dp">40dp</dimen>
     <dimen name="img50dp">50dp</dimen>
     <dimen name="img130dp">130dp</dimen>
+    <dimen name="img120dp">120dp</dimen>
+    <dimen name="img350dp">350dp</dimen>
+    <dimen name="img300dp">300dp</dimen>
+    <dimen name="img270dp">270dp</dimen>
+    <dimen name="img80dp">80dp</dimen>
+    <dimen name="img220dp">220dp</dimen>
+    <dimen name="img100dp">100dp</dimen>
+    <dimen name="img170dp">170dp</dimen>
+    <dimen name="img230dp">230dp</dimen>
+    <dimen name="img240dp">240dp</dimen>
+    <dimen name="img45dp">45dp</dimen>
+    <dimen name="img30dp">30dp</dimen>
 </resources>
