@@ -197,10 +197,11 @@ public class HomeActivity extends ActionBarActivity  {
                         mTimerLabel.setText(timerStop1);
                         mStartTime = 0L;
 
-                        Intent objIntent = new Intent(HomeActivity.this,FriendActivity.class);
-                        objIntent.putExtra("UserName",user_name);
-                        startActivity(objIntent);
-                        finish();
+//                        Intent objIntent = new Intent(HomeActivity.this,FriendActivity.class);
+//                        objIntent.putExtra("UserName",user_name);
+//                        objIntent.putExtra("UserID",user_id);
+//                        startActivity(objIntent);
+//                        finish();
 
                         //InviteFriendDialog
                         InviteFriendDialog();
@@ -232,10 +233,7 @@ public class HomeActivity extends ActionBarActivity  {
         objAlert.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                Intent objIntent = new Intent(MainActivity.this, HomeActivity.class);
-//                objIntent.putExtra("Name",strName);
-//                startActivity(objIntent);
-//                finish();
+
 
             }
         });
@@ -245,8 +243,10 @@ public class HomeActivity extends ActionBarActivity  {
 
                 Intent objIntent = new Intent(HomeActivity.this,FriendActivity.class);
                 objIntent.putExtra("UserName",user_name);
+                objIntent.putExtra("UserID",user_id);
                 startActivity(objIntent);
                 finish();
+
 
             }
         });

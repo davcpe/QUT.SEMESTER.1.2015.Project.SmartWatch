@@ -12,6 +12,7 @@ public class FriendTable {
 
     private MyOpenHelper objMyOpenHelper;
     private SQLiteDatabase writeSQLite, readSQLite;
+
     public static final String TABLE_FRIEND = "friendTABLE";
     public static final String COLUMN_NO  ="_no";
     public static final String COLUMN_USER_ID = "user_id";
@@ -29,9 +30,7 @@ public class FriendTable {
         try {
 
             String strData[]= null;
-            Cursor objCursor = readSQLite.query(TABLE_FRIEND,
-                    new String[] {COLUMN_NO, COLUMN_USER_ID,COLUMN_FRIEND_NAME,COLUMN_FRIEND_ID},COLUMN_USER_ID+"=?",
-                    new String[] {String.valueOf(strUSerName)}, null,null,null,null);
+            Cursor objCursor = readSQLite.query(TABLE_FRIEND,new String[] {COLUMN_NO, COLUMN_USER_ID,COLUMN_FRIEND_NAME,COLUMN_FRIEND_ID},COLUMN_USER_ID+"=?",new String[] {String.valueOf(strUSerName)}, null,null,null,null);
             if (objCursor != null) {
                 if(objCursor.moveToFirst()){
                     strData = new String[objCursor.getColumnCount()];
@@ -61,11 +60,13 @@ public class FriendTable {
         return writeSQLite.insert(TABLE_FRIEND, null,objContentValues);
     } //addValueToUser
 
-    public String[]listName(){
+    public String[]listName(String strUser_id ){
 
         String strlistName[] = null;
-        Cursor objCursor = readSQLite.query(TABLE_FRIEND,
-                new String[]{COLUMN_NO,COLUMN_FRIEND_NAME},null,null,null,null,null);
+       // Cursor objCursor = readSQLite.query(TABLE_FRIEND, new String[]{COLUMN_NO,COLUMN_FRIEND_NAME},null,null,null,null,null,null);
+
+        Cursor objCursor = readSQLite.query(TABLE_FRIEND,new String[] {COLUMN_NO, COLUMN_USER_ID,COLUMN_FRIEND_NAME,COLUMN_FRIEND_ID},COLUMN_USER_ID+"=?",new String[] {String.valueOf(strUser_id)}, null,null,null,null);
+
         objCursor.moveToFirst();
         strlistName = new String[objCursor.getCount()];
 

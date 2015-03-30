@@ -194,6 +194,7 @@ public class MainActivity extends ActionBarActivity {
     private void deleteData() {
         SQLiteDatabase objSQLite = openOrCreateDatabase("Health.db",MODE_PRIVATE,null);
         objSQLite.delete("userTABLE",null,null);
+        objSQLite.delete("friendTABLE",null,null);
     }
 
     private void bindWidget() {

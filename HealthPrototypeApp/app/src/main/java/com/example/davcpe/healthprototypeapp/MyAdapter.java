@@ -44,14 +44,14 @@ public class MyAdapter extends BaseAdapter {
         View view = objLayoutInflater.inflate(R.layout.friend_list_view_row, parent, false);
 
         //Setup Text Price
-        TextView listViewPrice = (TextView)view.findViewById(R.id.txtShowName);
-        listViewPrice.setText(str_Listname[position]);
+        TextView listViewName = (TextView)view.findViewById(R.id.txtShowName);
+        listViewName.setText(str_Listname[position]);
 
 //        //Setup Image
 //        ImageView listImageCoffee = (ImageView)view.findViewById(R.id.imgCoffee);
 //        listImageCoffee.setBackgroundResource(intMyTarget[position]);
 //
 
-        return null;
+        return view;
     }
 }

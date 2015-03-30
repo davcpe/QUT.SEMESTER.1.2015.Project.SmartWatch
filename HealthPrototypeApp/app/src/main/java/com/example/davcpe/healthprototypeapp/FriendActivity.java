@@ -1,41 +1,55 @@
 package com.example.davcpe.healthprototypeapp;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
-public class FriendActivity extends ActionBarActivity {
+public class FriendActivity extends Activity {
 
     //Explicit
     private  FriendTable objFriendTable;
     private  String[] strListName;
-    private  int[]myTarget;
     private TextView txtShowOfficer;
-    private  String strMyOfficer, strFriendName;
+    private  String strMyOfficer,strUser_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
+
+        //GetIntentData
+        GetIntentData();
 
         //Bindwidget
         Bindwidget();
@@ -58,6 +72,13 @@ public class FriendActivity extends ActionBarActivity {
 
     }
 
+    private void GetIntentData() {
+        Intent objIntent = getIntent();
+        strUser_ID = objIntent.getStringExtra("UserID");
+
+
+    }//GetIntentData
+
     private  void  CreateListView(){
 
 
@@ -70,7 +91,7 @@ public class FriendActivity extends ActionBarActivity {
 
     private void SetUpArray(){
 
-        strListName = objFriendTable.listName();
+        strListName = objFriendTable.listName(strUser_ID);
     }//SetUpArray
 
 
@@ -90,7 +111,7 @@ public class FriendActivity extends ActionBarActivity {
         try {
 
             HttpClient objHttpClient   =  new DefaultHttpClient();
-            HttpPost objHttpPost     =  new HttpPost("http://www.puneethbedre.com/rest/php_get_data_Coffee.php");
+            HttpPost objHttpPost     =  new HttpPost("http://puneethbedre.com/health/php_get_data_Friend.php");
             HttpResponse objHttpResponse =  objHttpClient.execute(objHttpPost);
             HttpEntity objHttpEntity   =  objHttpResponse.getEntity();
             objInputStream = objHttpEntity.getContent();
@@ -145,7 +166,7 @@ public class FriendActivity extends ActionBarActivity {
 
     private  void Bindwidget(){
 
-        txtShowOfficer = (TextView)findViewById(R.id.txtShowCoffee);
+        txtShowOfficer = (TextView)findViewById(R.id.txtShowOfficer);
 
     }//Bindwidget
 
