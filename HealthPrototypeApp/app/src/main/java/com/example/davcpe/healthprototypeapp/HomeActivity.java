@@ -78,6 +78,9 @@ public class HomeActivity extends FragmentActivity implements
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private  Double EndLat,EndLong;//PutExtra to Userdetails Page
+    private  String strEndLat,strEndLong; //PutExtra to Userdetails Page
+
     //SetUpTimer
 
     TextView mButtonLabel;
@@ -273,6 +276,14 @@ public class HomeActivity extends FragmentActivity implements
         objIntent.putExtra("ScaleSelect",strScale);
         objIntent.putExtra("Duration",timerStop1);
         objIntent.putExtra("ScaleDistance",txtScale.getText().toString().trim());
+
+        EndLat = gpsTracker.getLatitude();
+        strEndLat = String.valueOf(EndLat);
+        objIntent.putExtra("EndLat",strEndLat);
+
+        EndLong = gpsTracker.getLongitude();
+        strEndLong = String.valueOf(EndLong);
+        objIntent.putExtra("EndLong",strEndLong);
 
 
         startActivity(objIntent);

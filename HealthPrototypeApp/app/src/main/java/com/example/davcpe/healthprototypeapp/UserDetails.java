@@ -33,8 +33,9 @@ public class UserDetails extends FragmentActivity {
 
     GPSTracker gpsTracker = new GPSTracker(UserDetails.this);
 
-    private  String strUsername,strUserID,strACT,strScaleSelect,strDuration,strLat,strLong,strDistance;
+    private  String strUsername,strUserID,strACT,strScaleSelect,strDuration,strLat,strLong,strDistance,strEndLat,strEndLong;
     private TextView txtName,txtAct,txtScale,txtDuration;
+    private  Double currentlat,currentLong, Endlat, EndLong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +62,11 @@ public class UserDetails extends FragmentActivity {
 
         LatLng coordinates = new LatLng(13.685400079263206, 100.537133384495975);
 
+        LatLng startPosition2 = new LatLng(currentlat,currentLong);
+        LatLng endPosition2   = new LatLng(Endlat,EndLong);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 16));
-        mMap.addMarker(new MarkerOptions().position(startPosition).title("Start"));
-        mMap.addMarker(new MarkerOptions().position(endPosition).title("End"));
+        mMap.addMarker(new MarkerOptions().position(startPosition2).title("Start"));
+        mMap.addMarker(new MarkerOptions().position(endPosition2).title("End"));
 
         Document doc = md.getDocument(startPosition
                 , endPosition, GMapV2Direction.MODE_DRIVING);
@@ -136,16 +139,23 @@ public class UserDetails extends FragmentActivity {
         Intent objIntent = getIntent();
         strUsername = objIntent.getStringExtra("UserName");
         strUserID   = objIntent.getStringExtra("UserID");
+
         strLat      = objIntent.getStringExtra("startLat");
+        currentlat = Double.parseDouble(strLat);
         strLong     = objIntent.getStringExtra("startLong");
+        currentLong = Double.parseDouble(strLong);
+
+        strEndLat   = objIntent.getStringExtra("EndLat");
+        Endlat      = Double.parseDouble(strEndLat);
+
+        strEndLong  = objIntent.getStringExtra("EndLong");
+        EndLong     = Double.parseDouble(strEndLong);
+
         strACT      = objIntent.getStringExtra("ActivitySelect");
         strScaleSelect = objIntent.getStringExtra("ScaleSelect");
         strDuration    = objIntent.getStringExtra("Duration");
         strDistance    = objIntent.getStringExtra("ScaleDistance");
 
     }//GetIntentData
-
-
-
 
 }
