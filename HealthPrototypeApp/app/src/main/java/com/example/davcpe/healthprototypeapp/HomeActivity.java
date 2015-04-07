@@ -3,9 +3,12 @@ package com.example.davcpe.healthprototypeapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.os.SystemClock;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,24 +16,68 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 
-public class HomeActivity extends ActionBarActivity  {
+import org.w3c.dom.Document;
 
+
+public class HomeActivity extends FragmentActivity implements
+        GooglePlayServicesClient.ConnectionCallbacks,
+        com.google.android.gms.location.LocationListener,
+        GooglePlayServicesClient.OnConnectionFailedListener {
+
+    ////Original Explicit//////////////////////////////
     private Spinner spinner_Act,spinner_Scale;
     private ImageView imgStart,img_Act,img_Scale,imgBack;
     private TextView txtScale;
     private MyAlertDialog objAlertDialog;
     ArrayAdapter<CharSequence> adapterAct,adapterScale;
     private  String strItemAct,strScale; //SpinnerItem
-    private   String user_name,user_id,user_Description;
+    private   String user_name,user_id,user_Description,strlattitude,strlongtitude;
+    private   Double currentlat,currentlong;
     private EditText editDes;
 
 
+    ///////////GoogleMap Explicit///////////////////////////////////////////////////////////////////
+    GPSTracker gpsTracker ;
+    private LatLng StartPoint;
+    private GoogleMap myMap;            // map reference
+    private PolylineOptions lineOptions = null;
+    private LatLng point;
+    private Button btn1;
+    private TextView txtshowDistance,txtshowDistance2,txtshowDetails,txtLat,txtLong;
+    Location location;
+
+    private LatLng EndPoint;
+    Double a = -27.4631387;
+    Double b = 153.0230726;
+    LatLng startPosition = new LatLng(a, b);
+    LatLng endPosition = new LatLng(13.683660045847258, 100.53900808095932);
+    LatLng endPosition2 = new LatLng(-27.4631387, 153.0230726);
+
+
+    private LocationClient myLocationClient;
+    private static final LocationRequest REQUEST = LocationRequest.create()
+            .setInterval(5000)         // 5 seconds
+            .setFastestInterval(10)    // 10ms = 60fps
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     //SetUpTimer
 
@@ -55,6 +102,13 @@ public class HomeActivity extends ActionBarActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy
+                    = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
+
         //GetIntentData
         GetIntentData();
 
@@ -66,14 +120,22 @@ public class HomeActivity extends ActionBarActivity  {
         SetUpListView();
 
 
-       //SetUpStartEvent
-        SetUpStartEvent();
+        //GetMapReference
+        getMapReference();
     }
 
     private void GetIntentData() {
         Intent objIntent = getIntent();
         user_name = objIntent.getStringExtra("UserName");
         user_id = objIntent.getStringExtra("UserID");
+
+        strlattitude =objIntent.getStringExtra("Lat");
+        currentlat = Double.parseDouble(strlattitude);
+
+        strlongtitude =objIntent.getStringExtra("Long");
+        currentlong = Double.parseDouble(strlongtitude);
+
+        StartPoint = new LatLng(currentlat,currentlong);
 
     }//GetIntentData
 
@@ -86,17 +148,12 @@ public class HomeActivity extends ActionBarActivity  {
         img_Scale     = (ImageView)findViewById(R.id.imageScale);
         imgBack       = (ImageView)findViewById(R.id.imageBack);
         txtScale      = (TextView)findViewById(R.id.textScale);
-        editDes       = (EditText)findViewById(R.id.editDesc);
-
-
 
         //Timer
         mTimerLabel = (TextView) findViewById(R.id.textTimer);
 
-        //GetDataFrom Editext
-        user_Description = editDes.getText().toString().trim();
-
-
+        //GPS
+        gpsTracker = new GPSTracker(HomeActivity.this);
 
 
 
@@ -175,60 +232,10 @@ public class HomeActivity extends ActionBarActivity  {
 
     }//SetUpListView
 
-
-
-    private void SetUpStartEvent() {
-
-        imgStart.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                imgStart.setImageResource(R.drawable.stop_icon2);
-                if(mStartTime == 0L){
-                    mStartTime = SystemClock.uptimeMillis();
-                    mHandler.removeCallbacks(mUpdateTimeTask);
-                    mHandler.postDelayed(mUpdateTimeTask, 100);
-
-                }
-                imgStart.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mHandler.removeCallbacks(mUpdateTimeTask);
-                        mTimerLabel.setText(timerStop1);
-                        mStartTime = 0L;
-
-//                        Intent objIntent = new Intent(HomeActivity.this,FriendActivity.class);
-//                        objIntent.putExtra("UserName",user_name);
-//                        objIntent.putExtra("UserID",user_id);
-//                        startActivity(objIntent);
-//                        finish();
-
-                        //InviteFriendDialog
-                        InviteFriendDialog();
-                    }
-                });
-
-            }
-        });
-
-
-        imgBack.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent objIntent = new Intent(HomeActivity.this,FirstPage.class);
-                startActivity(objIntent);
-                finish();
-            }
-        });
-
-
-
-    }//SetUpStartEvent
-
     private void InviteFriendDialog() {
         final AlertDialog.Builder objAlert = new AlertDialog.Builder(this);
         objAlert.setTitle("Save this Challenge to  "+user_name+"'History and Challenge friend");
-        objAlert.setMessage("Details:" + "\n" + "Duration: " + timerStop1 + "\n" + "Activity: " + strItemAct + "\n" + "Scale: " + strScale + "\n\n" + "Description: "+user_Description);
+        objAlert.setMessage("Details:" + "\n" + "Duration: " + timerStop1 + "\n" + "Activity: " + strItemAct + "\n" + "Scale: " + strScale + "\n\n" + "Value: "+txtScale.getText().toString().trim());
         objAlert.setCancelable(false);
         objAlert.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
             @Override
@@ -254,6 +261,7 @@ public class HomeActivity extends ActionBarActivity  {
         objAlert.show();
     }
 
+    //Duration Counter
     private Runnable mUpdateTimeTask = new Runnable(){
 
         public void run() {
@@ -298,6 +306,183 @@ public class HomeActivity extends ActionBarActivity  {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        getMapReference();
+        wakeUpLocationClient();
+        myLocationClient.connect();
+    }
+
+    /**
+     *      Activity's lifecycle event.
+     *      onPause will be called when activity is going into the background,
+     */
+    @Override
+    public void onPause(){
+        super.onPause();
+        if(myLocationClient != null){
+            myLocationClient.disconnect();
+        }
+    }
+    /**
+     *
+     * @param lat - latitude of the location to move the camera to
+     * @param lng - longitude of the location to move the camera to
+     *            Prepares a CameraUpdate object to be used with  callbacks
+     */
+
+    private void gotoMyLocation(double lat, double lng) {
+        changeCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().target(new LatLng(lat, lng))
+                        .zoom(17.5f)
+                        .bearing(0)
+                        .tilt(25)
+                        .build()
+        ), new GoogleMap.CancelableCallback() {
+            @Override
+            public void onFinish() {
+                // Your code here to do something after the Map is rendered
+            }
+
+            @Override
+            public void onCancel() {
+                // Your code here to do something after the Map rendering is cancelled
+            }
+        });
+    }
+    /**
+     *      When we receive focus, we need to get back our LocationClient
+     *      Creates a new LocationClient object if there is none
+     */
+    private void wakeUpLocationClient() {
+        if(myLocationClient == null){
+            myLocationClient = new LocationClient(getApplicationContext(),
+                    this,       // Connection Callbacks
+                    this);      // OnConnectionFailedListener
+        }
+    }
+    /**
+     *      Get a map object reference if none exits and enable blue arrow icon on map
+     */
+    private void getMapReference() {
+        if(myMap == null){
+            myMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+
+        }
+        if(myMap != null){
+            myMap.setMyLocationEnabled(true);
+        }
+    }
 
 
+    @Override
+    public void onConnected(Bundle bundle) {
+        myLocationClient.requestLocationUpdates(REQUEST,this); // LocationListener
+    }
+
+    @Override
+    public void onDisconnected() {
+
+    }
+
+    @Override
+    public void onLocationChanged( Location location) {
+//        gotoMyLocation(location.getLatitude(), location.getLongitude());
+        ////////////////////////////////////////////////////////////////
+//        if(gpsTracker.getLocation() != null) {
+//
+//            Double lt = location.getLatitude();
+//            Double ln = location.getLongitude();
+//            if (android.os.Build.VERSION.SDK_INT > 9) {
+//                StrictMode.ThreadPolicy policy
+//                        = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//                StrictMode.setThreadPolicy(policy);
+//            }
+
+           // SetUpStartEvent();
+
+
+//            gpsTracker.updateGPSCoordinates();
+//
+//            double lat = gpsTracker.getLatitude();
+//            double lon = gpsTracker.getLongitude();
+//            /////////////////////////////////////////////////////
+//            LatLng EndPoint5 = new LatLng(lt,ln);
+//            EndPoint = new LatLng(gpsTracker.getLatitude(),gpsTracker.getLongitude());
+//            GMapV2Direction mp2 = new GMapV2Direction();
+//            Document doc2 = mp2.getDocument(StartPoint, EndPoint, GMapV2Direction.MODE_DRIVING);
+//            String distance2 = mp2.getDistanceText(doc2);
+//            String duration2 = mp2.getDurationText(doc2);
+//            txtScale.setText(distance2);
+
+
+//        }
+
+
+        imgStart.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                imgStart.setImageResource(R.drawable.stop_icon2);
+                gotoMyLocation(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+                if(mStartTime == 0L){
+                    mStartTime = SystemClock.uptimeMillis();
+                    mHandler.removeCallbacks(mUpdateTimeTask);
+                    mHandler.postDelayed(mUpdateTimeTask, 100);
+
+                }
+                if( (gpsTracker.getLocation() != null)&&(strScale=="Distance")) {
+
+
+                    if (android.os.Build.VERSION.SDK_INT > 9) {
+                        StrictMode.ThreadPolicy policy
+                                = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
+                    }
+
+
+                    gpsTracker.updateGPSCoordinates();
+                    /////////////////////////////////////////////////////
+                    EndPoint = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+                    GMapV2Direction mp2 = new GMapV2Direction();
+                    Document doc2 = mp2.getDocument(StartPoint, EndPoint, GMapV2Direction.MODE_DRIVING);
+                    String distance2 = mp2.getDistanceText(doc2);
+                    String duration2 = mp2.getDurationText(doc2);
+                    txtScale.setText(distance2);
+                }
+
+                if(  (gpsTracker.getLocation() != null)&&(strScale=="Kcal")    ) {
+                    txtScale.setText("0.00 Kcal");
+                }
+
+
+
+
+                imgStart.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mHandler.removeCallbacks(mUpdateTimeTask);
+                        mTimerLabel.setText(timerStop1);
+                        mStartTime = 0L;
+
+                        //InviteFriendDialog
+                        InviteFriendDialog();
+                    }
+                });
+
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+    private void changeCamera(CameraUpdate update, GoogleMap.CancelableCallback callback) {
+        myMap.moveCamera(update);
+    }
 }

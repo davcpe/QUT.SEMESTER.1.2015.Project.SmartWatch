@@ -36,14 +36,24 @@ public class MainActivity extends ActionBarActivity {
     private  String strUserChoose,strPasswordChoose,strPasswordTrue, strName,strUser_ID;
     private EditText edtUser, edtPassword;
 
+    private  GPSTracker gpsTracker ;
+
+    private String strlattitude,strlongtitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy
+                    = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
 
         //BindWidget
-        bindWidget();
+       bindWidget();
 
 
         //CreateTable
@@ -53,11 +63,11 @@ public class MainActivity extends ActionBarActivity {
         //delete All data
         deleteData();
 
+
+
+
         //synJsonTOSQLite
         synJsonTOSQLite();
-
-
-
 
     }
 
@@ -111,6 +121,16 @@ public class MainActivity extends ActionBarActivity {
 
     private void wellCOmeUser() {
 
+
+        if(gpsTracker.getLocation() != null ){
+
+            double lat = gpsTracker.getLatitude();
+            double lon = gpsTracker.getLongitude();
+            strlattitude = String.valueOf(lat);
+            strlongtitude = String.valueOf(lon);
+        }
+
+
         final AlertDialog.Builder objAlert = new AlertDialog.Builder(this);
         objAlert.setIcon(R.drawable.welcome_icon);
         objAlert.setTitle("Welcome to The Healthy Challenges !!!");
@@ -122,6 +142,8 @@ public class MainActivity extends ActionBarActivity {
                 Intent objIntent = new Intent(MainActivity.this, FirstPage.class);
                 objIntent.putExtra("UserName",strName);
                 objIntent.putExtra("UserID",strUser_ID);
+                objIntent.putExtra("Lat",strlattitude);
+                objIntent.putExtra("Long",strlongtitude);
                 startActivity(objIntent);
                 finish();
 
@@ -198,6 +220,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void bindWidget() {
+        gpsTracker = new GPSTracker(MainActivity.this);
+
         edtUser  = (EditText)findViewById(R.id.editUserName);
         edtPassword = (EditText)findViewById(R.id.editPassword);
 

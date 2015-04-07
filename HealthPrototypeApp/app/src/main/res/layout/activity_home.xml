@@ -16,15 +16,13 @@
     ]]>
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerACT"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="45dp"
         android:layout_gravity="left"
-        android:layout_toLeftOf="@+id/imageStartbtn"
-        android:layout_toStartOf="@+id/imageStartbtn"
         android:background="#ff70e3ff" />
 
     <ImageView
@@ -87,24 +85,25 @@
         android:layout_alignStart="@+id/textTimer"
         android:textSize="30dp" />
 
-    <EditText
+
+
+    <fragment
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editDesc"
-        android:layout_marginBottom="37dp"
-        android:layout_above="@+id/imageStartbtn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="Description :" />
+        android:layout_height="@dimen/img240dp"
+        tools:layout="@layout/abc_action_menu_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
-        android:layout_width="@dimen/img120dp"
-        android:layout_height="@dimen/img120dp"
+        android:layout_width="@dimen/img80dp"
+        android:layout_height="@dimen/img80dp"
         android:id="@+id/imageStartbtn"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_above="@+id/map"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/start_button2"
-        android:layout_gravity="right|left"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>

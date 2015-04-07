@@ -8,13 +8,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+
 
 
 public class FirstPage extends ActionBarActivity {
 
     private Button btnAct,btnRank,btnFriend,btnChallengeHistory;
     private ImageView imgNotification;
-    private  String user_name,user_id;
+    private  String user_name,user_id,strlattitude,strlongtitude;
+
 
 
     @Override
@@ -24,6 +28,7 @@ public class FirstPage extends ActionBarActivity {
 
         //GetIntentData
         GetIntentData();
+
 
         //BindWidget
         BindWidget();
@@ -37,6 +42,8 @@ public class FirstPage extends ActionBarActivity {
         Intent objIntent = getIntent();
         user_id = objIntent.getStringExtra("UserID");
         user_name =objIntent.getStringExtra("UserName");
+        strlattitude=objIntent.getStringExtra("Lat");
+        strlongtitude=objIntent.getStringExtra("Long");
 
 
     }//GetIntentData
@@ -61,6 +68,8 @@ public class FirstPage extends ActionBarActivity {
                 Intent objIntent = new Intent(FirstPage.this,HomeActivity.class);
                 objIntent.putExtra("UserName",user_name);
                 objIntent.putExtra("UserID",user_id);
+                objIntent.putExtra("Lat",strlattitude);
+                objIntent.putExtra("Long",strlongtitude);
 
                 startActivity(objIntent);
                 finish();
