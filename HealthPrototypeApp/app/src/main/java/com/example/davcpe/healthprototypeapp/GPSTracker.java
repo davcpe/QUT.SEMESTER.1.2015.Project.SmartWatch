@@ -157,7 +157,6 @@ public class GPSTracker extends Service implements LocationListener {
 
         return longitude;
     }
-
     /**
      * Function to check GPS/wifi enabled
      */

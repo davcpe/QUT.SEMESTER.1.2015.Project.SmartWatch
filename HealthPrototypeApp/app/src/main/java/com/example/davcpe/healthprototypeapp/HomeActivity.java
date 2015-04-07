@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -261,6 +260,26 @@ public class HomeActivity extends FragmentActivity implements
         objAlert.show();
     }
 
+    //ShowUserDetails
+    public void ShowUserDetails(){
+
+
+        Intent objIntent = new Intent(HomeActivity.this,UserDetails.class);
+        objIntent.putExtra("UserName",user_name);
+        objIntent.putExtra("UserID",user_id);
+        objIntent.putExtra("startLat",strlattitude);
+        objIntent.putExtra("startLong",strlongtitude);
+        objIntent.putExtra("ActivitySelect",strItemAct);
+        objIntent.putExtra("ScaleSelect",strScale);
+        objIntent.putExtra("Duration",timerStop1);
+        objIntent.putExtra("ScaleDistance",txtScale.getText().toString().trim());
+
+
+        startActivity(objIntent);
+        finish();
+
+    }
+
     //Duration Counter
     private Runnable mUpdateTimeTask = new Runnable(){
 
@@ -388,7 +407,7 @@ public class HomeActivity extends FragmentActivity implements
 
     @Override
     public void onLocationChanged( Location location) {
-//        gotoMyLocation(location.getLatitude(), location.getLongitude());
+      //gotoMyLocation(location.getLatitude(), location.getLongitude());
         ////////////////////////////////////////////////////////////////
 //        if(gpsTracker.getLocation() != null) {
 //
@@ -467,7 +486,10 @@ public class HomeActivity extends FragmentActivity implements
                         mStartTime = 0L;
 
                         //InviteFriendDialog
-                        InviteFriendDialog();
+                        //InviteFriendDialog();
+
+                        //ShowUserDetials
+                        ShowUserDetails();
                     }
                 });
 
