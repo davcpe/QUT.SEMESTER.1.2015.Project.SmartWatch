@@ -61,10 +61,11 @@ public class UserDetails extends FragmentActivity {
                 .findFragmentById(R.id.map)).getMap();
 
         LatLng coordinates = new LatLng(13.685400079263206, 100.537133384495975);
+        LatLng coordinates2 = new LatLng(currentlat,currentLong);
 
         LatLng startPosition2 = new LatLng(currentlat,currentLong);
         LatLng endPosition2   = new LatLng(Endlat,EndLong);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 16));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates2, 16));
         mMap.addMarker(new MarkerOptions().position(startPosition2).title("Start"));
         mMap.addMarker(new MarkerOptions().position(endPosition2).title("End"));
 
