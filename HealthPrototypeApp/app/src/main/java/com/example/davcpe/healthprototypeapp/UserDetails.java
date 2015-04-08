@@ -7,6 +7,8 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,9 +35,11 @@ public class UserDetails extends FragmentActivity {
 
     GPSTracker gpsTracker = new GPSTracker(UserDetails.this);
 
-    private  String strUsername,strUserID,strACT,strScaleSelect,strDuration,strLat,strLong,strDistance,strEndLat,strEndLong;
+    private  String strUsername,strUserID,strACT,strScaleSelect,strDuration,strLat,strLong,strDistance,strTotalDistance,strEndLat,strEndLong;
     private TextView txtName,txtAct,txtScale,txtDuration;
     private  Double currentlat,currentLong, Endlat, EndLong;
+    private Button btnChallenge,btnSaveToHistory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +57,9 @@ public class UserDetails extends FragmentActivity {
         //BindWidget
         BindWidget();
 
-        //SetText
-        SetText();
 
-        md = new GMapV2Direction();
-        mMap = ((SupportMapFragment)getSupportFragmentManager()
-                .findFragmentById(R.id.map)).getMap();
+        md   = new GMapV2Direction();
+        mMap = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 
         LatLng coordinates = new LatLng(13.685400079263206, 100.537133384495975);
         LatLng coordinates2 = new LatLng(currentlat,currentLong);
@@ -66,13 +67,12 @@ public class UserDetails extends FragmentActivity {
         LatLng startPosition2 = new LatLng(currentlat,currentLong);
         LatLng endPosition2   = new LatLng(Endlat,EndLong);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates2, 16));
-        mMap.addMarker(new MarkerOptions().position(startPosition2).title("Start"));
-        mMap.addMarker(new MarkerOptions().position(endPosition2).title("End"));
+        mMap.addMarker(new MarkerOptions().position(startPosition2).title("Start Point"));
+        mMap.addMarker(new MarkerOptions().position(endPosition2).title("End Point"));
 
-        Document doc = md.getDocument(startPosition
-                , endPosition, GMapV2Direction.MODE_DRIVING);
+        Document doc = md.getDocument(startPosition2, endPosition2, GMapV2Direction.MODE_DRIVING);
         int duration = md.getDurationValue(doc);
-        String distance = md.getDistanceText(doc);
+        String strTotalDistance = md.getDistanceText(doc);
         String start_address = md.getStartAddress(doc);
         String copy_right = md.getCopyRights(doc);
 
@@ -84,20 +84,18 @@ public class UserDetails extends FragmentActivity {
         }
 
         mMap.addPolyline(rectLine);
-        /////////////////////////////////////////////////////////////////////GPS Checking
+        /////////GPS Checking///////////////////
 
-        String stringLatitude = "", stringLongitude = "", nameOfLocation="";
-        if (gpsTracker.canGetLocation()) {
-            stringLatitude = String.valueOf(gpsTracker.latitude);
-            stringLongitude = String.valueOf(gpsTracker.longitude);
-            nameOfLocation = ConvertPointToLocation(stringLatitude,stringLongitude);
-            String strDetails = "lat : "+stringLatitude+"Long : "+stringLongitude+"Name of Location : "+nameOfLocation;
+        //SetText
+        SetText();
 
+        //SetButton (Save and Challenge Friend)
+        SetButtonClick();
 
-        }
 
 
     }
+
 
     public String ConvertPointToLocation(String Latitude, String Longitude) {
         String address = "";
@@ -123,17 +121,43 @@ public class UserDetails extends FragmentActivity {
         txtAct  =  (TextView)findViewById(R.id.textAct);
         txtScale = (TextView)findViewById(R.id.textScale);
         txtDuration = (TextView)findViewById(R.id.textDuration);
+        btnChallenge = (Button)findViewById(R.id.buttonChallenge);
+        btnSaveToHistory = (Button)findViewById(R.id.buttonSaveHistory);
 
     }//BindWidget
 
     private void SetText(){
 
+        LatLng startPosition2 = new LatLng(currentlat,currentLong);
+        LatLng endPosition2   = new LatLng(Endlat,EndLong);
+        Document doc = md.getDocument(startPosition2, endPosition2, GMapV2Direction.MODE_DRIVING);
+
+        int duration = md.getDurationValue(doc);
+        String strTotalDistance = md.getDistanceText(doc);
+        String start_address = md.getStartAddress(doc);
+        String copy_right = md.getCopyRights(doc);
+
         txtName.setText("User Name : "+strUsername);
         txtAct.setText("Activity : "+strACT);
-        txtScale.setText(strScaleSelect+" Total : "+ strDistance );
+        txtScale.setText(strScaleSelect+" Total : "+ strTotalDistance );
         txtDuration.setText("Duration : "+strDuration);
 
     }//SetText
+
+
+
+    private void SetButtonClick() {
+     btnChallenge.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             Intent objIntent = new Intent(UserDetails.this,FriendActivity.class);
+             objIntent.putExtra("UserName",strUsername);
+             objIntent.putExtra("UserID",strUserID);
+             startActivity(objIntent);
+             finish();
+         }
+     });
+    }
 
 
     public  void GetIntentData(){

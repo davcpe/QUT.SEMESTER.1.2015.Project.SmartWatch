@@ -131,11 +131,21 @@ public class HomeActivity extends FragmentActivity implements
         user_name = objIntent.getStringExtra("UserName");
         user_id = objIntent.getStringExtra("UserID");
 
+
         strlattitude =objIntent.getStringExtra("Lat");
-        currentlat = Double.parseDouble(strlattitude);
+        if(strlattitude == "") {
+            currentlat = gpsTracker.getLatitude();
+        }else{
+            currentlat = Double.parseDouble(strlattitude);
+        }
+
 
         strlongtitude =objIntent.getStringExtra("Long");
-        currentlong = Double.parseDouble(strlongtitude);
+        if(strlongtitude == " "){
+            currentlong = gpsTracker.getLongitude();
+        }else{
+            currentlong = Double.parseDouble(strlongtitude);
+        }
 
         StartPoint = new LatLng(currentlat,currentlong);
 
