@@ -18,6 +18,8 @@ public class FirstPage extends ActionBarActivity {
     private Button btnAct,btnRank,btnFriend,btnChallengeHistory;
     private ImageView imgNotification;
     private  String user_name,user_id,strlattitude,strlongtitude;
+    private  Double currentlat,currentLong;
+    GPSTracker objGpsTracker = null;
 
 
 
@@ -42,8 +44,26 @@ public class FirstPage extends ActionBarActivity {
         Intent objIntent = getIntent();
         user_id = objIntent.getStringExtra("UserID");
         user_name =objIntent.getStringExtra("UserName");
+
+
         strlattitude=objIntent.getStringExtra("Lat");
+        if(strlattitude == null){
+            currentlat = objGpsTracker.getLatitude();
+            strlattitude = String.valueOf(currentlat);
+        }
+        else if(strlattitude != null){
+            strlattitude = objIntent.getStringExtra("Lat");
+        }
+
+
         strlongtitude=objIntent.getStringExtra("Long");
+        if(strlongtitude == null){
+            currentLong = objGpsTracker.getLongitude();
+            strlongtitude = String.valueOf(currentLong);
+        }
+        else if(strlongtitude != null){
+            strlongtitude = objIntent.getStringExtra("Long");
+        }
 
 
     }//GetIntentData
@@ -58,6 +78,10 @@ public class FirstPage extends ActionBarActivity {
 
         //Image
         imgNotification = (ImageView)findViewById(R.id.imageNotification);
+
+        //GPS
+        objGpsTracker = new GPSTracker(FirstPage.this);
+
     }//BindWidget
 
 

@@ -70,6 +70,10 @@ public class FriendActivity extends Activity {
     private void GetIntentData() {
         Intent objIntent = getIntent();
         strUser_ID = objIntent.getStringExtra("UserID");
+        strUserName = objIntent.getStringExtra("UserName");
+
+        strLat  = objIntent.getStringExtra("startlat");
+        strLong = objIntent.getStringExtra("startLong");
 
 
     }//GetIntentData

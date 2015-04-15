@@ -153,6 +153,8 @@ public class UserDetails extends FragmentActivity {
              Intent objIntent = new Intent(UserDetails.this,FriendActivity.class);
              objIntent.putExtra("UserName",strUsername);
              objIntent.putExtra("UserID",strUserID);
+             objIntent.putExtra("startlat",strLat);
+             objIntent.putExtra("startLong",strLong);
              startActivity(objIntent);
              finish();
          }
