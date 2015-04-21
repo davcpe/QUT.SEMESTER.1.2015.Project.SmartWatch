@@ -46,28 +46,22 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy
-                    = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.ThreadPolicy policy= new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
-
-        //BindWidget
+       //BindWidget
        bindWidget();
 
+       //CreateTable
+       objUserTABLE = new UserTABLE(this);
+       objFriendTable = new FriendTable(this);
 
-        //CreateTable
-        objUserTABLE = new UserTABLE(this);
-        objFriendTable = new FriendTable(this);
+       //delete All data
+       deleteData();
 
-        //delete All data
-        deleteData();
-
-
-
-
-        //synJsonTOSQLite
-        synJsonTOSQLite();
+       //synJsonTOSQLite
+       synJsonTOSQLite();
 
     }
 

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">HealthApp</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="no_name"></string>
+    <string name="menu_activity">Activity</string>
+    <string name="header_mode">ACTIVITY</string>
+    <string name="menu_walking">Walking Mode</string>
+    <string name="menu_cycling">Cycling Mode</string>
+    <string name="menu_sleep">Sleep Mode</string>
+    <string name="header_social">SOCIAL</string>
+    <string name="menu_friend">Friend</string>
+    <string name="menu_rank">Rank</string>
+    <string name="header_profile">PROFILE</string>
+    <string name="menu_history">My Challenge History</string>
+    <string name="menu_logout">Logout</string>
+</resources>
